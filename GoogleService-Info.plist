@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>469274829509-ttpubmm697e97qpeukv8ncb14332kb5d.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.469274829509-ttpubmm697e97qpeukv8ncb14332kb5d</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAKdORYKIx8wg1m5BY-u1sUAnnitO1taKk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>469274829509</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.G4.Onek</string>
+	<key>PROJECT_ID</key>
+	<string>onek-3e750</string>
+	<key>STORAGE_BUCKET</key>
+	<string>onek-3e750.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:469274829509:ios:b32ba2d7bbfd8adc0606ac</string>
+</dict>
+</plist>

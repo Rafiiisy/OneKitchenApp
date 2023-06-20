@@ -7,7 +7,7 @@ import SplashScreen from "./screens/Splash";
 import LoginScreen from "./screens/Login";
 import SigninScreen from "./screens/Signin";
 import SigninScreen2 from "./screens/Signin2";
-
+import HomeScreen from "./screens/Home";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -45,6 +45,11 @@ export default function App() {
         <Stack.Screen
           name="SigninScreen2"
           component={SigninScreen2}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

@@ -1,88 +1,179 @@
+import React from "react";
 import {
+  StyleSheet,
   View,
-  Text,
-  SafeAreaView,
-  StatusBar,
   Image,
+  Text,
   TextInput,
+  SafeAreaView,
   ScrollView,
+  FlatList,
 } from "react-native";
-import React, { useLayoutEffect, useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
-import Categories from "../components/categories";
-import FeatureRow from "../components/featuredRow";
-import { getFeaturedResturants } from "../api";
-import * as Icon from "react-native-feather";
-import { themeColors } from "../theme";
+import styles from "../screensStyles/HomeScreenStyles";
 
-export default function HomeScreen() {
-  const [featuredCategories, setFeaturedCategories] = useState([]);
-  const navigation = useNavigation();
-  useLayoutEffect(() => {
-    navigation.setOptions({ headerShown: false });
-  }, []);
-  useEffect(() => {
-    getFeaturedResturants().then((data) => {
-      setFeaturedCategories(data);
-    });
-  }, []);
+export default function App() {
+  const deals = [
+    {
+      id: 1,
+      image: require("./assets/HomeScreen/Deli-promo.png"),
+      rating: 4.8,
+      restaurant: "Resto 1",
+    },
+    {
+      id: 2,
+      image: require("./assets/HomeScreen/Ricebowl-promo.png"),
+      rating: 4.7,
+      restaurant: "Resto 2",
+    },
+  ];
+  const imageDetails = [
+    { title: "Title 1", description: "Description 1" },
+    { title: "Title 2", description: "Description 2" },
+    { title: "Title 3", description: "Description 3" },
+    // Add more objects for additional images
+  ];
+
+  // Calculate the total number of items needed for looping
+  const totalItems = deals.length * 3;
+
+  // Create an array with repeated items for looping effect
+  const loopedDeals = Array.from(
+    { length: totalItems },
+    (_, index) => deals[index % deals.length]
+  );
 
   return (
-    <SafeAreaView className="bg-white">
-      <StatusBar barStyle="dark-content" />
-      {/* search bar */}
-      <View className="flex-row items-center space-x-2 px-4 pb-2 ">
-        <View className="flex-row flex-1 items-center p-3 rounded-full border border-gray-300">
-          <Icon.Search height="25" width="25" stroke="gray" />
-          <TextInput
-            placeholder="Resturants"
-            className="ml-2 flex-1"
-            keyboardType="default"
+    <SafeAreaView style={styles.safeAreaView}>
+      <View style={styles.imageContainer}>
+        <Image
+          source={require("./assets/HomeScreen/pattern.png")}
+          style={styles.image}
+        />
+      </View>
+      {/* Header */}
+      <View style={styles.header}>
+        <View style={styles.searchBar}>
+          <Image
+            source={require("./assets/HomeScreen/magnifyingglass.png")}
+            style={styles.searchIcon}
           />
-          <View className="flex-row items-center space-x-1 border-0 border-l-2 pl-2 border-l-gray-300">
-            <Icon.MapPin height="20" width="20" stroke="gray" />
-            <Text className="text-gray-600">New York, NYC</Text>
-          </View>
+          <TextInput style={styles.searchInput} placeholder="Search..." />
         </View>
-        <View
-          style={{ backgroundColor: themeColors.bgColor(1) }}
-          className="p-3 rounded-full"
-        >
-          <Icon.Sliders
-            height={20}
-            width={20}
-            strokeWidth="2.5"
-            stroke="white"
+
+        <View style={styles.locationContainer}>
+          <Image
+            source={require("./assets/HomeScreen/mappin.png")}
+            style={styles.pinIcon}
           />
+          <Text style={styles.textLocation}>Jl. Katio No.02</Text>
         </View>
       </View>
 
-      {/* main */}
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingBottom: 50,
-        }}
-      >
-        {/* categories */}
-        <Categories />
+      <ScrollView style={styles.containerContent}>
+        <View style={styles.imageStackContainer}>
+          <Image
+            source={require("./assets/HomeScreen/imgFood.png")}
+            style={styles.imgFood}
+          />
+          <View style={styles.imageTextContainer}>
+            <Text style={styles.imageTitle}>{imageDetails[0].title}</Text>
+            <Text style={styles.imageDescription}>
+              {imageDetails[0].description}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.sideBySideImagesContainer}>
+          <View style={styles.sideBySideImageContainer}>
+            <Image
+              source={require("./assets/HomeScreen/imgDeserts.png")}
+              style={styles.sideBySideImage}
+            />
+            <View style={styles.imageTextContainer}>
+              <Text style={styles.imageTitle}>{imageDetails[1].title}</Text>
+              <Text style={styles.imageDescription}>
+                {imageDetails[1].description}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.sideBySideImageContainer}>
+            <Image
+              source={require("./assets/HomeScreen/imgHealthy.png")}
+              style={styles.sideBySideImage}
+            />
+            <View style={styles.imageTextContainer}>
+              <Text style={styles.imageTitle}>{imageDetails[2].title}</Text>
+              <Text style={styles.imageDescription}>
+                {imageDetails[2].description}
+              </Text>
+            </View>
+          </View>
+        </View>
 
-        {/* featured */}
-        <View className="mt-5">
-          {featuredCategories?.map((category) => {
-            return (
-              <FeatureRow
-                key={category._id}
-                id={category._id}
-                title={category.name}
-                resturants={category?.resturants}
-                description={category.description}
-                featuredCategory={category._type}
-              />
-            );
-          })}
+        <View style={styles.horizontalViewContainerDeals}>
+          <Text style={styles.horizontalViewTitle}>Deals</Text>
+          <FlatList
+            data={loopedDeals}
+            horizontal
+            pagingEnabled
+            keyExtractor={(item, index) =>
+              item.id.toString() + index.toString()
+            } // Update the keyExtractor
+            renderItem={({ item }) => (
+              <View style={styles.dealItem}>
+                <Image source={item.image} style={styles.dealImage} />
+                <View style={styles.dealInfoContainer}>
+                  <View style={styles.ratingContainer}>
+                    <Image
+                      source={require("./assets/HomeScreen/star.png")}
+                      style={styles.starIcon}
+                    />
+                    <Text style={styles.ratingText}>{item.rating}</Text>
+                  </View>
+                  <Text style={styles.restaurantText}>{item.restaurant}</Text>
+                </View>
+              </View>
+            )}
+            getItemLayout={(data, index) => ({
+              length: 200,
+              offset: 210 * index,
+              index,
+            })}
+            initialScrollIndex={totalItems / 3}
+          />
         </View>
       </ScrollView>
+
+      <View style={styles.footerContainer}>
+        <View style={styles.footerItem}>
+          <Image
+            source={require("./assets/HomeScreen/vector-home.png")}
+            style={styles.icon}
+          />
+          <Text style={styles.text}>Home</Text>
+        </View>
+        <View style={styles.footerItem}>
+          <Image
+            source={require("./assets/HomeScreen/searchvector.png")}
+            style={styles.icon}
+          />
+          <Text style={styles.text}>Search</Text>
+        </View>
+        <View style={styles.footerItem}>
+          <Image
+            source={require("./assets/HomeScreen/vector-clock.png")}
+            style={styles.icon}
+          />
+          <Text style={styles.text}>Orders</Text>
+        </View>
+        <View style={styles.footerItem}>
+          <Image
+            source={require("./assets/HomeScreen/vector-user.png")}
+            style={styles.icon}
+          />
+          <Text style={styles.text}>Account</Text>
+        </View>
+      </View>
     </SafeAreaView>
   );
 }
+

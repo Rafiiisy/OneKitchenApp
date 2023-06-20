@@ -7,7 +7,7 @@ const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     // Simulating a 3-second duration for the splash screen
     const timer = setTimeout(() => {
-      navigation.navigate("Login"); // Navigate to the login screen after the splash screen
+      navigation.navigate("LoginScreen"); // Navigate to the login screen after the splash screen
     }, 30);
 
     return () => clearTimeout(timer);
